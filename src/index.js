@@ -21,7 +21,7 @@ export default class MovePlugin extends Plugin {
       targetPath = null;
     (isArray(this.include)) ? includeList = this.include : includeList.push(this.include);
     (isArray(this.options)) ? optionList = this.options : optionList.push(this.options);
-    if(includeList.length != optionList.length){
+    if(includeList.length !== optionList.length){
       this.fatal('Plugin config\'s include length must be equal to options length');
       return;
     }
