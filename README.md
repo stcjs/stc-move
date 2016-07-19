@@ -5,13 +5,13 @@ Stc plugin for moving file
 ## Install
 
 ```sh
-npm install stc-move
+npm install stc-move-file
 ```
 
 ## How to use
 
 ```
-var stcmove = require('stc-move');
+var stcmove = require('stc-move-file');
 stc.workflow({
   //JSCompress: {plugin: uglify, include: /\.js$/},
   stcmove: {plugin: stcmove, include: [/resource\/abc\/.*\.js$/, /resource\/ abd\/.*\.js$/], options: [
