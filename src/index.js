@@ -1,22 +1,37 @@
 import Plugin from 'stc-plugin';
-import {extend} from 'stc-helper';
+import {extend, isArray} from 'stc-helper';
+import path from 'path';
 
-let options = null;
 /**
- * Use ESlint to verify code
+ * Move file
  */
 export default class MovePlugin extends Plugin {
   /**
    * run
    */
   async run(){
-
   }
   /**
    * update
    */
   update(data){
-
+    let includeList = [],
+      optionList = [],
+      matchIndex = -1,
+      targetPath = null;
+    (isArray(this.include)) ? includeList = this.include : includeList.push(this.include);
+    (isArray(this.options)) ? optionList = this.options : optionList.push(this.options);
+    if(includeList.length != optionList.length){
+      this.fatal('Plugin config\'s include length must be equal to options length');
+      return;
+    }
+    includeList.forEach((result, index) => {
+      if(result.test(this.file.path)){
+        matchIndex = index;
+        targetPath = path.join(optionList[matchIndex].target, this.file.path.replace(optionList[matchIndex].without, ''));
+        this.file.path = targetPath;
+      }
+    });
   }
   /**
    * use cluster
