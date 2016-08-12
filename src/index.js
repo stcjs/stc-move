@@ -1,11 +1,11 @@
 import Plugin from 'stc-plugin';
-import {extend, isArray} from 'stc-helper';
+import {extend, isArray, isFunction, isString} from 'stc-helper';
 import path from 'path';
 
 /**
- * Move file
+ * Copy file
  */
-export default class MovePlugin extends Plugin {
+export default class CopyFilePlugin extends Plugin {
   /**
    * run
    */
@@ -15,23 +15,21 @@ export default class MovePlugin extends Plugin {
    * update
    */
   update(data){
-    let includeList = [],
-      optionList = [],
-      matchIndex = -1,
-      targetPath = null;
-    (isArray(this.include)) ? includeList = this.include : includeList.push(this.include);
-    (isArray(this.options)) ? optionList = this.options : optionList.push(this.options);
-    if(includeList.length !== optionList.length){
-      this.fatal('Plugin config\'s include length must be equal to options length');
+    var targetPath;
+    if(!this.options.dest) {
+      this.fatal('StcCopyFile plugin must have dest config');
       return;
     }
-    includeList.forEach((result, index) => {
-      if(result.test(this.file.path)){
-        matchIndex = index;
-        targetPath = path.join(optionList[matchIndex].target, this.file.path.replace(optionList[matchIndex].without, ''));
-        this.file.path = targetPath;
+    if(isFunction(this.options.dest)) {
+      if(!this.options.dest(this.file.path)){
+        this.fatal('StcCopyFile plugin dest function must return a path string');
+        return;
       }
-    });
+      targetPath = this.options.dest(this.file.path);
+    }else if(isString(this.options.dest)) {
+      targetPath = path.join(this.options.dest, this.file.path);
+    }
+    this.file.path = targetPath;
   }
   /**
    * use cluster
