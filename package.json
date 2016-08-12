@@ -1,7 +1,7 @@
 {
-  "name": "stc-copy-file",
-  "description": "Stc plugin for copying file",
-  "version": "1.0.1",
+  "name": "stc-move-file",
+  "description": "Stc plugin for moving file",
+  "version": "1.0.2",
   "author": {
     "name": "lushijie",
     "email": "lushijie1218@126.com"
@@ -39,13 +39,13 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/stcjs/stc-copy-file"
+    "url": "https://github.com/stcjs/stc-move-file"
   },
   "engines": {
     "node": ">=4.0.0"
   },
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/stcjs/stc-copy-file/issues"
+    "url": "https://github.com/stcjs/stc-move-file/issues"
   }
 }
